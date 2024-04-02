@@ -2,21 +2,21 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 /// <reference types="node" />
 /// <reference types="jsdom" />
-var jsdom_1 = require("jsdom");
-var isBirthdayData = true;
-var userNameData = 'Maxim';
-var createError = function (msg) {
+const jsdom_1 = require("jsdom");
+const isBirthdayData = true;
+const userNameData = 'Maxim';
+const createError = (msg) => {
     throw new Error(msg);
 };
-var ageData;
+let ageData;
 ageData = 37;
-var userData = "{\"isBirthdayData\": true ,\"userNameData\": \"Masha\", \"ageData\": 36}";
-var userObj = JSON.parse(userData);
+const userData = `{"isBirthdayData": true ,"userNameData": "Masha", "ageData": 36}`;
+const userObj = JSON.parse(userData);
 console.log('userObj=', userObj);
 // function logBirthMsg({ isBirthdayData, userNameData, ageData }: IUser) {
 function logBirthMsg(isBirthdayData, userNameData, ageData) {
     if (isBirthdayData === true) {
-        console.log("Congrads ".concat(userNameData.toUpperCase(), " with your ").concat(ageData + 1, " birthday"));
+        console.log(`Congrads ${userNameData.toUpperCase()} with your ${ageData + 1} birthday`);
     }
     else if (typeof isBirthdayData === 'string') {
         return console.log('Too bad');
@@ -41,16 +41,15 @@ logBirthMsg('true', 'Masha', 38);
 // };
 // logBirthMsg(isBirthdayData, userNameData, 37);
 //??  Destructure OBJ ==================================================== */
-var user1Data = {
+const user1Data = {
     isBirthdayData: true,
     userNameData: 'Mira',
     ageData: 12,
     messages: { error: 'Error56' },
 };
-function logBirthMsg2(_a) {
-    var isBirthdayData = _a.isBirthdayData, userNameData = _a.userNameData, ageData = _a.ageData, error = _a.messages.error;
+function logBirthMsg2({ isBirthdayData, userNameData, ageData, messages: { error: error }, }) {
     if (isBirthdayData) {
-        console.log("Congrads ".concat(userNameData.toUpperCase(), " with your ").concat(ageData + 1, " birthday"));
+        console.log(`Congrads ${userNameData.toUpperCase()} with your ${ageData + 1} birthday`);
     }
     else {
         return createError(error);
@@ -58,11 +57,11 @@ function logBirthMsg2(_a) {
 }
 // logBirthMsg2(user1Data);
 //??  Destructure Array =================  array=================================== */
-var departments = ['Dev', 'Design', 'Marketing'];
-var report = departments
-    .filter(function (d) { return d !== 'Dev'; })
-    .map(function (d) { return "".concat(d, "-Done"); });
-var first = report[0];
+const departments = ['Dev', 'Design', 'Marketing'];
+const report = departments
+    .filter((d) => d !== 'Dev')
+    .map((d) => `${d}-Done`);
+const [first] = report;
 // const [second] = report[1];
 // const secondd = report[1];
 // console.log("report", report);
@@ -71,7 +70,7 @@ var first = report[0];
 // console.log("secondd", secondd);
 function ptintMsg(msg) {
     if (Array.isArray(msg)) {
-        msg.forEach(function (m) { return console.log(m); });
+        msg.forEach(m => console.log(m));
     }
     else if (typeof msg === 'number') {
         console.log(msg.toFixed());
@@ -82,7 +81,7 @@ function ptintMsg(msg) {
 // ptintMsg(5.778787);
 // ptintMsg(["jyfvvyufv", "1111", "7i6ru6ru6"]);
 // ptintMsg(false);
-var printReadings = function (a, b) {
+const printReadings = (a, b) => {
     if (typeof a === typeof b) {
         console.log(a, b);
     }
@@ -91,7 +90,7 @@ var printReadings = function (a, b) {
 };
 // printReadings(2, 9);
 // printReadings(2, true);
-var checkReadings = function (reading) {
+const checkReadings = (reading) => {
     if ('system' in reading) {
         console.log('System', Math.pow(reading.system, 2));
     }
@@ -100,7 +99,7 @@ var checkReadings = function (reading) {
 };
 // checkReadings({ system: 8 });
 // checkReadings({ user: 8 });
-var logValue = function (value) {
+const logValue = (value) => {
     if (value instanceof Date) {
         console.log(value.getFullYear());
     }
@@ -108,15 +107,15 @@ var logValue = function (value) {
         console.log(value.trim());
 };
 logValue('        989yii8b    ');
-var nn = new Date();
+const nn = new Date();
 console.log(nn);
 logValue(nn);
 // ? Literal types Literal types  Literal types  Literal types  Literal types  Literal types
-var port3000 = 3000;
-var port3001 = 3001;
-var startServer = function (protocol, port) {
+const port3000 = 3000;
+const port3001 = 3001;
+const startServer = (protocol, port) => {
     if (port === port3000 || port === port3001) {
-        console.log("Server started on protocol ".concat(protocol, "://server:").concat(port));
+        console.log(`Server started on protocol ${protocol}://server:${port}`);
     }
     return 'Server startediiiii';
 };
@@ -137,46 +136,50 @@ startServer('https', 3000);
 // 	}
 // 	console.log(`${animation} ${timingFoo} ${duration} ${iterCount}`)
 // }
-function createAnimation(id, animation, timingFoo, duration, iterCount) {
-    if (timingFoo === void 0) { timingFoo = 'ease'; }
-    var dom = new jsdom_1.JSDOM('<!DOCTYPE html><html><body></body></html>');
-    var elem = dom.window.document.querySelector("#".concat(id));
+function createAnimation(id, animation, timingFoo = 'ease', duration, iterCount) {
+    const dom = new jsdom_1.JSDOM('<!DOCTYPE html><html><body></body></html>');
+    const elem = dom.window.document.querySelector(`#${id}`);
     if (elem) {
-        elem.style.animation = "".concat(animation, " ").concat(timingFoo, " ").concat(duration, " ").concat(iterCount);
+        elem.style.animation = `${animation} ${timingFoo} ${duration} ${iterCount}`;
     }
-    console.log("\"ID =\"".concat(id, ",").concat(animation, " ").concat(timingFoo, " ").concat(duration, " ").concat(iterCount));
+    console.log(`"ID ="${id},${animation} ${timingFoo} ${duration} ${iterCount}`);
 }
 // Wrap your code inside window.onload
-var dom = new jsdom_1.JSDOM('<!DOCTYPE html><html><body></body></html>');
-dom.window.onload = function () {
+const dom = new jsdom_1.JSDOM('<!DOCTYPE html><html><body></body></html>');
+dom.window.onload = () => {
     createAnimation('_1', 'yexyry6yy6', 'ease', 600, 3);
     createAnimation('myElement', 'myAnimation', 'ease-out', 3000, 'infinite');
 };
-function createAnimation1(id, animation, timingFoo, duration, iterCount) {
-    if (timingFoo === void 0) { timingFoo = 'ease'; }
-    var elem = document.querySelector("#".concat(id));
+function createAnimation1(id, animation, timingFoo = 'ease', duration, iterCount) {
+    const elem = document.querySelector(`#${id}`);
     if (elem) {
-        elem.style.animation = "".concat(animation, "} ").concat(timingFoo, " ").concat(duration, " ").concat(iterCount);
+        elem.style.animation = `${animation}} ${timingFoo} ${duration} ${iterCount}`;
     }
     // console.log(`${animation} ${timingFoo} ${duration} ${iterCount}`);
 }
-var serverConfig = {
+const serverConfig = {
     protocol: 'http',
     port: 3000,
     role: 'ADMIN',
-    log: function (body) { return console.log('Msg', body); },
+    log: (body) => console.log('Msgttt', body),
     data: new Date(),
 };
-var startServer1 = function (protocol, port, role, 
+const startServer1 = (protocol, port, role, 
 // log: Function
-log, data) {
+log, data) => {
     // console.log(`Server started on protocol ${protocol}://server:${port}`);
-    log("Server started on protocol ".concat(protocol, "://server:").concat(port, " with role ").concat(role, " On date ").concat(data, " "));
-    return 'Server started';
+    log(`Server started on protocol ${protocol}://server:${port} with role ${role} On date ${data} `);
+    return 'Server strded';
 };
 startServer1(serverConfig.protocol, serverConfig.port, serverConfig.role, serverConfig.log, serverConfig.data);
-var styles = {
+const styles = {
     position: 'absolute',
     top: '30px',
     right: '50px',
 };
+const friendsDict = {
+    Alfred: '101 oihubib i8bby 999',
+    liam: ' 777 airborn ;ljmljnljn',
+    Monika: ' 0987654vXXCCVV BBBBBBB',
+};
+//console.log(просто навести на friendsName);

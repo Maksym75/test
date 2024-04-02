@@ -1,3 +1,4 @@
+'use strict'
 import { JSDOM } from 'jsdom'
 //? TUPLE Кортеж
 
@@ -58,7 +59,7 @@ startServerNew(backNewConfig)
 
 interface User {
 	readonly login: string
-	passwod: string
+	password: string
 	age: number
 	readonly addrs?: string
 	parents?: {
@@ -69,16 +70,16 @@ interface User {
 
 const user: User = {
 	login: 'Maxim75',
-	passwod: 'qwerty',
+	password: 'qwerty',
 	age: 47,
 }
 const userFreeze: Readonly<User> = {
 	login: 'Maxim755',
-	passwod: 'qwerty5',
+	password: 'qwerty5',
 	age: 45,
 }
 
-user.passwod = 'i8bt7'
+user.password = 'i8bt7'
 // userFreeze.passwod="i8bt7"
 
 function sendUserData(obj: User, db?: string): void {
@@ -120,7 +121,7 @@ function frame(elem: string, dir: Directions, tFunc: TimingFuncN): void {
 	}
 }
 
-// frame("ID", Directions.RIGHT, TimingFuncN.LINEAR);
+frame('ID', Directions.RIGHT, TimingFuncN.LINEAR)
 
 //* --UNKNOWN unknown=--UNKNOWN unknown--UNKNOWN unknown--UNKNOWN unknown=--UNKNOWN unknown=
 
@@ -291,6 +292,7 @@ function isNumber(n: unknown): n is number {
 	return typeof n === 'number'
 }
 
+//? video 37-38
 interface Car {
 	name: 'car'
 	engine: string
@@ -312,6 +314,14 @@ interface Airplane {
 	engine: string
 	wings: string
 }
+interface MistakeAirplane {
+	name: 'SomeShet'
+	engine: string
+	wings: string
+}
+
+//* if we add in Vehicle ( | MistakeAirplane ) - and forgot add in switch case, We will see Mistake in (const smth:)
+//* what why it very useful case  !!! ( const smth: never = vehicle )
 type Vehicle = Car | Ship | Airplane
 
 //? ВАЖНО !!! без : car is Car  не будет правильно работать если попробуем мспользовать boolean
@@ -332,7 +342,11 @@ function repairVehicle(vehicle: Vehicle) {
 			console.log(vehicle.wheels.number * 2)
 			break
 		case 'ship':
-			console.log(vehicle.sail.size)
+			console.log(
+				`Ship has ${vehicle.sail.quantity} parusa area of sails ${
+					vehicle.sail.size * vehicle.sail.quantity
+				} with ${vehicle.engine} engine`
+			)
 			break
 		case 'airplane':
 			console.log(vehicle.wings)
@@ -343,7 +357,18 @@ function repairVehicle(vehicle: Vehicle) {
 			break
 	}
 }
+const korablik: Vehicle = {
+	name: 'ship',
+	engine: 'Dizelek',
+	sail: {
+		size: 200,
+		quantity: 4,
+	},
+}
 
+repairVehicle(korablik)
+
+//? video 39
 interface Square {
 	a: number
 	area: number
@@ -354,9 +379,9 @@ interface Rect {
 	area: number
 }
 
-function calculatefArea(side: number): Square
-function calculatefArea(a: number, b?: number): Rect
-function calculatefArea(a: number, b?: number): Square | Rect {
+function calculateArea(side: number): Square
+function calculateArea(k: number, l?: number): Rect
+function calculateArea(a: number, b?: number): Square | Rect {
 	if (b) {
 		const rect: Rect = {
 			a,
@@ -372,8 +397,10 @@ function calculatefArea(a: number, b?: number): Square | Rect {
 		return square
 	}
 }
-// console.log(calculatefArea(4, 9));
+console.log(calculateArea(4, 9))
+console.log(calculateArea(7))
 
+//* Video 40
 interface Car1 {
 	name: 'car'
 	engine: string
@@ -389,6 +416,7 @@ interface Airplane1 {
 	engine: string
 	wings: string
 }
+// ? below is not correct! better didnt do it
 interface ComplexType1 {
 	name: 'car' | 'ship' | 'airplane'
 	engine: string
@@ -402,6 +430,12 @@ type Vehicle1 = Car1 | Ship1 | Airplane1
 const carr: ComplexType1 = {
 	name: 'car',
 	engine: 'V8',
+}
+
+const shippp: ComplexType1 = {
+	name: 'ship',
+	engine: ' 7t7tgigt',
+	sail: 'TWINNSAILS',
 }
 
 function repairVehicle1(vehicle: ComplexType1) {
@@ -424,6 +458,10 @@ function repairVehicle1(vehicle: ComplexType1) {
 			break
 	}
 }
+console.log('==================================')
+repairVehicle1(carr)
+console.log('==================================')
+repairVehicle1(shippp)
 console.log('==================================')
 repairVehicle1(carr)
 
